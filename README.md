@@ -10,15 +10,19 @@ This repository contains the code for Emily Yeppers, a bot who likes to talk abo
 
 1. Clone this repository, of course.
 
-2. Install the necessary Python libraries:
+2. Download the fine-tuned model and extract it to same directory as the scripts. You only really need to do this if you want to use the fine-tuned model, otherwise, you can adjust the bot_config.py file to include a standard GPT-2 model or a fine-tuned one of your own (see "How the bot works" below): 
+
+     https://drive.google.com/file/d/156HpzOcaHmFPHw0oSfogrynx0j-IJFf3/view?usp=sharing
+
+3. Install the necessary Python libraries:
 
     `pip install -r requirements.txt`
 
-3. Set up a Reddit app for the bot from your Reddit account's developer applications page. Ideally, create a new account for this. Click on 'Create App' or 'Create Another App', fill out the form, and note the 'client id' and 'client secret'. 
+4. Set up a Reddit app for the bot from your Reddit account's developer applications page. Ideally, create a new account for this. Click on 'Create App' or 'Create Another App', fill out the form, and note the 'client id' and 'client secret'. 
 
-4. Update the bot_config.py file with your Reddit app's client id, client secret, your new bot's Reddit username and password, and the bot's user agent. The format for the user agent is something like 'python:EmilyYeppersBot:v3.0 (by u/<your reddit username>)'.
+5. Update the bot_config.py file with your Reddit app's client id, client secret, your new bot's Reddit username and password, and the bot's user agent. The format for the user agent is something like 'python:EmilyYeppersBot:v3.0 (by u/<your reddit username>)'.
 
-5. Execute the main script to start the bot:
+6. Execute the main script to start the bot:
 
     `python __main__.py`
 
@@ -26,6 +30,8 @@ This repository contains the code for Emily Yeppers, a bot who likes to talk abo
 ## How the bot works
 
 The bot streams new content from specified subreddits and enqueues items for processing. It checks comments and submissions for target phrases along with any direct replies to the bot. It also responds to mentions.
+    
+The download link for the original fine-tuned bot is included in step 2. This model was trained from r/shittyaskreddit and the post history of certain users.
 
 The bot uses OpenAI's GPT-2 model for generating responses. The responses are formatted and checked against a blacklist of unwanted words.
 
