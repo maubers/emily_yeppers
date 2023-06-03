@@ -5,6 +5,8 @@ A very mentally unwell Reddit bot written by the laziest person in existence. Sh
 
 This repository contains the code for Emily Yeppers, a bot who likes to talk about very inappropriate things and how vital they are to the existence of our species (the truth, technically) using GPT-2.  The bot streams new content from specified subreddits and responds when certain target phrases are detected in comments and submissions, or when it is mentioned or directly replied to.
 
+An alternative name that I have considered for her is "The Cumbot 9000"
+
 
 ## Setup and Installation
 
@@ -44,6 +46,21 @@ The bot uses OpenAI's GPT-2 model for generating responses. The responses are fo
 - response_handler.py: Contains functions for generating and formatting responses.
 - stream_handler.py: Contains functions for streaming new content from Reddit.
 
+## Possible Questions
+   **Q: Why is it all in Python?**
+     
+   A: Why not? I'm actually very bad at Python, so I figured I could use the practice.
+     
+     
+   **Q: Why did you make this?**
+     
+   A: I don't understand my own motives. Please don't ask.
+     
+     
+   **Q: Why did you create a proper readme if you don't care?**
+     
+   A: I cheated on creating the readme. Don't tell anyone.
+     
 ## License
 
 This project is licensed under the GNU General Public License v3.0. See the LICENSE file for details.
