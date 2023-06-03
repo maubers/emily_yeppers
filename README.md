@@ -12,7 +12,7 @@ An alternative name that I have considered for her is "The Cumbot 9000"
 
 1. Clone this repository, of course.
 
-2. Download the fine-tuned model and extract it to same directory as the scripts. You only really need to do this if you want to use the fine-tuned model, otherwise, you can adjust the bot_config.py file to include a standard GPT-2 model or a fine-tuned one of your own (see "How the bot works" below): 
+2. Download the fine-tuned model and extract it to same directory as the scripts. You only really need to do this if you want to use the fine-tuned model, otherwise, you can adjust the bot_config.py file to include a standard GPT-2 model or a fine-tuned one of your own. The bot will probably behave less offensively if you use a different model from mine. (see "How the bot works" below): 
 
      https://drive.google.com/file/d/156HpzOcaHmFPHw0oSfogrynx0j-IJFf3/view?usp=sharing
 
