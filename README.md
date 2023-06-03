@@ -1,5 +1,5 @@
 # emily_yeppers
-A very mentally unwell Reddit bot
+A very mentally unwell Reddit bot written by the laziest person in existence. Should I separate config in another format? Probably. Do I feel like it? No, not really. Not yet.
 
 ## Overview
 
