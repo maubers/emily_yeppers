@@ -8,6 +8,8 @@ import asyncio
 import asyncpraw
 import logging
 import re
+import traceback
+
 
 # Handles all subreddits specified to stream new content from
 async def subreddit_streams(reddit, subreddits):
@@ -52,7 +54,7 @@ async def process_queue(queue, reddit):
 
         if item.id not in processed_items:
             isValidItem = await itemIsValid(item, reddit)
-            print("Successfully checked if valid")
+            print('\n')
             if isValidItem:
                 print("Item is valid. Running handle_bot_reply...")
                 await handle_bot_reply(item)
@@ -87,7 +89,11 @@ async def itemIsValid(item, reddit):
 
                     parent_id = parent_comment.parent_id
 
-                if bot_in_comment_chain:
+                if re.search(shutup_mention, item.body, flags=re.IGNORECASE):
+                    print(f'Stopping bot from replying - user told it to shut up')
+                    return False
+                
+                elif bot_in_comment_chain:
                     print(f'Replying to item - bot in comment chain')
                     return True
 
@@ -120,9 +126,10 @@ async def itemIsValid(item, reddit):
                 if re.search(bot_mention, item.selftext, flags=re.IGNORECASE):
                         print(f'Replying to item - bot mention')
                         return True
-    except:
-        print("Comment deleted in chain. Checking next item.")
-        
+    except Exception as e:
+        print("An error occurred: ", e)
+        traceback.print_exc()
+
     print("Item is not valid")
     return False
 
