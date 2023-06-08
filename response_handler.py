@@ -83,7 +83,7 @@ def format_response(prompt, response):
         print(f"Third regex pattern check complete (regular ol' hyperlinks). New response: {response}")
         
         # Split text into sentences
-        sentences = [s.strip() for s in re.split("[.!?]", response) if s.strip()]
+        sentences = [s.strip() for s in re.split('(?<=[.!?]) +', response) if s.strip()]
         print("Split response into sentences.")
 
         ### NO MORE REGEX - next part deals with any repeating sentences
@@ -95,22 +95,16 @@ def format_response(prompt, response):
                 if similarity_score(s, sentences[j]) > 0.8:
                     unique = False
                     break
-            if unique:
-                if s not in prompt:
-                    # Remove any trailing or leading punctuation
-                    s = s.strip(string.punctuation)
+
+            if unique and not any(phrase in s.lower() for phrase in omit_phrases):
+                if s[:-1] not in prompt:
+                    # Append "!!!" to the last sentence - Emily style
+                    if i == len(sentences) - 1:
+                        s = s[:-1] + "!!!"
                     new_sentences.append(s)
 
-        # Check if the last sentence ends with a proper punctuation mark
-        if len(new_sentences) > 0 and new_sentences[-1][-1] not in {'.', '!', '?'}:
-            new_sentences.pop()
-
-        # Append "!!!" to the last sentence - Emily style
-        if len(new_sentences) > 0:
-            new_sentences[-1] = new_sentences[-1] + "!!!"
-
         # Join sentences
-        response = ". ".join(new_sentences)
+        response = " ".join(new_sentences)
         response = response.strip()
 
     return response
