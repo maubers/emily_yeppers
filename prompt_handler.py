@@ -32,10 +32,6 @@ def process_sentences(prompt):
     for sentence in sentences:
         stripped_sentence = sentence.strip()
 
-        for phrase in TARGET_PHRASES:
-            if (phrase.lower() in stripped_sentence.lower()):
-                stripped_sentence = stripped_sentence.replace(phrase, "").strip()
-
         if len(stripped_sentence) > 0:
             new_sentences.append(stripped_sentence)
 
