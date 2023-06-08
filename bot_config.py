@@ -42,4 +42,5 @@ trigger_regex = re.compile(trigger_pattern, flags=re.IGNORECASE)
 subreddits = ['shittyaskreddit', 'testthewalrus', 'AssCredit']
 bot_mention = "u/EMILY\_YEPPERS"
 shutup_mention = "shut the fuck up"
+omit_phrases = ["serious eats", "instagram", "affiliate", "subscribe", "@"]
 relationships = {}      # Use this dictionary to make the bot behave differently with specific users
