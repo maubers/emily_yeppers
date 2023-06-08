@@ -104,7 +104,7 @@ async def itemIsValid(item, reddit):
 
                 else:
                     for phrase in TARGET_PHRASES:
-                        if (phrase.lower() in item.body.lower()):
+                        if trigger_regex.search(item.body.lower()):
                             print(f'Replying to item - target phrase in body.')
                             return True
 
@@ -113,11 +113,11 @@ async def itemIsValid(item, reddit):
                 print(f'Contents: {item.selftext}')
                 
                 for phrase in TARGET_PHRASES:
-                    if (phrase.lower() in item.title.lower()):
+                    if trigger_regex.search(item.title.lower()):
                         print(f'Replying to item - target phrase in title')
                         return True
 
-                    elif (phrase.lower() in item.selftext.lower()):
+                    elif trigger_regex.search(item.selftext.lower()):
                         print(f'Replying to item - target phrase in body.')
                         return True
                         
@@ -125,6 +125,7 @@ async def itemIsValid(item, reddit):
                 
                 if re.search(bot_mention, item.selftext, flags=re.IGNORECASE):
                         print(f'Replying to item - bot mention')
+
                         return True
     except Exception as e:
         print("An error occurred: ", e)
