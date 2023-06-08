@@ -7,6 +7,7 @@ A config file of sorts.
 import os
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import torch
+import re
 
 # Load GPT-2 model and tokenizer
 model_path = "emily_yeppers_4.0"
@@ -35,7 +36,9 @@ password = os.environ["PASSWORD"]
 
 
 # Set the target phrase, subreddit, and user relationships
-TARGET_PHRASES = ['emily yeppers', ' cum ', 'olive juice']
+TARGET_PHRASES = ['emily yeppers', 'cum', 'olive juice']
+trigger_pattern = r'\b(' + '|'.join(TARGET_PHRASES) + r')\b'
+trigger_regex = re.compile(trigger_pattern, flags=re.IGNORECASE)
 subreddits = ['shittyaskreddit', 'testthewalrus', 'AssCredit']
 bot_mention = "u/EMILY\_YEPPERS"
 shutup_mention = "shut the fuck up"
