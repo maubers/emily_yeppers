@@ -63,62 +63,66 @@ async def process_queue(queue, reddit):
 async def itemIsValid(item, reddit):
     print("Checking item", item)
 
-    if (item.author.name.lower() == username.lower()):
-        print("Bot is the author. Returning false.")
-        return False
+    try:
+        if (item.author.name.lower() == username.lower()):
+            print("Bot is the author. Returning false.")
+            return False
 
-    else:
-        if isinstance(item, asyncpraw.models.Comment):
-            print("Comment detected")
-            print(f'Contents: {item.body}')
+        else:
+            if isinstance(item, asyncpraw.models.Comment):
+                print("Comment detected")
+                print(f'Contents: {item.body}')
 
-            parent_id = item.parent_id
-            bot_in_comment_chain = False
+                parent_id = item.parent_id
+                bot_in_comment_chain = False
 
-            while parent_id.startswith("t1_"):
-                parent_comment = await reddit.comment(parent_id[3:])  # Remove the 't1_' prefix
-                await parent_comment.load()
+                
+                while parent_id.startswith("t1_"):
+                    parent_comment = await reddit.comment(parent_id[3:])  # Remove the 't1_' prefix
+                    await parent_comment.load()
 
-                if parent_comment.author.name.lower() == username.lower():
-                    bot_in_comment_chain = True
-                    break
+                    if parent_comment.author.name.lower() == username.lower():
+                        bot_in_comment_chain = True
+                        break
 
-                parent_id = parent_comment.parent_id
+                    parent_id = parent_comment.parent_id
 
-            if bot_in_comment_chain:
-                print(f'Replying to item - bot in comment chain')
-                return True
-
-
-            elif re.search(bot_mention, item.body, flags=re.IGNORECASE):
-                print(f'Replying to item - bot mention')
-                return True
-
-            else:
-                for phrase in TARGET_PHRASES:
-                    if (phrase.lower() in item.body.lower()):
-                        print(f'Replying to item - target phrase in body.')
-                        return True
-
-        elif isinstance(item, asyncpraw.models.Submission):
-            print("Submission Detected")
-            print(f'Contents: {item.selftext}')
-            
-            for phrase in TARGET_PHRASES:
-                if (phrase.lower() in item.title.lower()):
-                    print(f'Replying to item - target phrase in title')
+                if bot_in_comment_chain:
+                    print(f'Replying to item - bot in comment chain')
                     return True
 
-                elif (phrase.lower() in item.selftext.lower()):
-                    print(f'Replying to item - target phrase in body.')
-                    return True
-                    
-            print(f'Finished checking other submission checks. Now checking for a bot mention in {item.selftext}')
-            
-            if re.search(bot_mention, item.selftext, flags=re.IGNORECASE):
+
+                elif re.search(bot_mention, item.body, flags=re.IGNORECASE):
                     print(f'Replying to item - bot mention')
                     return True
 
+                else:
+                    for phrase in TARGET_PHRASES:
+                        if (phrase.lower() in item.body.lower()):
+                            print(f'Replying to item - target phrase in body.')
+                            return True
+
+            elif isinstance(item, asyncpraw.models.Submission):
+                print("Submission Detected")
+                print(f'Contents: {item.selftext}')
+                
+                for phrase in TARGET_PHRASES:
+                    if (phrase.lower() in item.title.lower()):
+                        print(f'Replying to item - target phrase in title')
+                        return True
+
+                    elif (phrase.lower() in item.selftext.lower()):
+                        print(f'Replying to item - target phrase in body.')
+                        return True
+                        
+                print(f'Finished checking other submission checks. Now checking for a bot mention in {item.selftext}')
+                
+                if re.search(bot_mention, item.selftext, flags=re.IGNORECASE):
+                        print(f'Replying to item - bot mention')
+                        return True
+    except:
+        print("Comment deleted in chain. Checking next item.")
+        
     print("Item is not valid")
     return False
 
@@ -143,4 +147,3 @@ async def handle_bot_reply(item):
 
     except Exception as e:
         logging.error(f"Error while handling target phrase: {e}")
-
