@@ -35,7 +35,7 @@ def create_gpt_response(prompt):
         input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
         
         with torch.no_grad():
-            output = model.generate(input_ids=input_ids, max_length=response_length, temperature=crazy_factor, do_sample=True, num_beams=5, repetition_penalty=2.5, length_penalty=0.8, no_repeat_ngram_size=2)[0]
+            output = model.generate(input_ids=input_ids, max_length=response_length, temperature=crazy_factor, do_sample=True, num_beams=8, repetition_penalty=2.8, length_penalty=3.5, no_repeat_ngram_size=4)[0]
         
         print("Generating a response")
         response = tokenizer.decode(output, skip_special_tokens=True)
@@ -87,7 +87,7 @@ def format_response(prompt, response):
         for i, s in enumerate(sentences):
             unique = True
             for j in range(i):
-                if similarity_score(s, sentences[j]) > 0.8:
+                if similarity_score(s, sentences[j]) > 0.9:
                     unique = False
                     break
 
