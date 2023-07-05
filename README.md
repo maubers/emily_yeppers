@@ -31,7 +31,7 @@ The bot streams new content from specified subreddits and enqueues items for pro
     
 This model was trained from r/shittyaskreddit and the post history of certain users.
 
-The bot uses OpenAI's GPT-2 model for generating responses. The responses are formatted and checked against a blacklist of unwanted words.
+The responses are formatted and checked against a blacklist of unwanted words.
 
   
  ## Files
