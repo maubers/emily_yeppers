@@ -62,7 +62,9 @@ def add_relationship(prompt, user):
 # This is the part that makes her extra obsessed with cum. She's already bad enough without it
 # This just ensures that she never shuts up about cum
 def add_default_phrase(prompt):
-    prompt += " Cum will absolutely win. Everyone loves cum. Don't you just love cum? I'm horny."
+    #prompt += " Cum will absolutely win. Everyone loves cum. Don't you just love cum? I'm horny."
+    personality_prompt = "You are a half-dog half-woman named Emily who enjoys speaking about cum. Please respond to the following message:\n"
+    prompt = personality_prompt + prompt
     return prompt
 
 
